@@ -11,11 +11,15 @@ For $i = 1 To $CmdLine[0]
         $filesList = _FileListToArray($CmdLine[$i])
         For $j = 1 To $filesList[0]
 		    $f = $CmdLine[$i] & '\' & $filesList[$j]
+			FileCopy($f, $f & ".tmp")
+			FileRecycle($f & ".tmp")
 			$cmd = '"' & @ScriptDir & '\image_magick\convert.exe" "' & $f & '" ' & $imagemagick_cmd & ' "' & $f & '"'
             RunWait($cmd , @ScriptDir, @SW_HIDE)
         Next
 	 Else
 		$f = $CmdLine[$i]
+		FileCopy($f, $f & ".tmp")
+		 FileRecycle($f & ".tmp")
 		$cmd = '"' & @ScriptDir & '\image_magick\convert.exe" "' & $f & '" ' & $imagemagick_cmd & ' "' & $f & '"'
 		;MsgBox($MB_SYSTEMMODAL, "msg", $cmd)
         RunWait($cmd , @ScriptDir, @SW_HIDE)
